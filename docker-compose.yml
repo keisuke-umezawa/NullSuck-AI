@@ -11,28 +11,6 @@ services:
     environment:
       NODE_ENV: "development"
       API_URL: "http://api:5432"
-  api:
-    build: ./server/.
-    volumes:
-      - ./server/:/app
-      - pycache_volume:/root/.cache
-    ports:
-      - "5432:5432"
-    command: pipenv run dev
-    environment:
-      PY_ENV: "local"
-    links:
-      - db
-  db:
-    image: mysql:5.7
-    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
-    volumes:
-      - db_volume:/var/lib/mysql
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: 'P@ssw0rd'
-      TZ: "Asia/Tokyo"
 
 volumes:
   db_volume:
