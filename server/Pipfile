@@ -1,0 +1,26 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+responder = "*"
+sqlalchemy = "*"
+python-dotenv = "*"
+mysqlclient = "*"
+numpy = "*"
+marshmallow-sqlalchemy = "~=0.16"
+scikit-learn = "==0.20.3"
+pandas = "==0.24.2"
+
+[requires]
+python_version = "3.6"
+
+[pipenv]
+allow_prereleases = true
+
+[scripts]
+dev = "uvicorn --host=0.0.0.0 --port=5432 --debug --log-level=debug api:api"
+prod = "uvicorn --host=0.0.0.0 --port=5432 api:api"
