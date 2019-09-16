@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app
-  lagels:
+  labels:
     app: app
 spec:
   replicas: 1
