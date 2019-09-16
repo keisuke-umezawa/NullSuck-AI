@@ -1,4 +1,5 @@
 import settings
+import models
 import responder
 from handlers import (
     WineAttributeResource,
@@ -7,6 +8,7 @@ from handlers import (
 )
 
 
+models.main()
 api = responder.API(
     cors=True,
     allowed_hosts=["*"],
