@@ -35,11 +35,11 @@ spec:
                 name: cloudsql-db-password
                 key: password
           - name: DB_NAME
-            value: chainer-sample
+            value: chainersample
       - name: cloudsql-proxy
         image: gcr.io/cloudsql-docker/gce-proxy:1.14
         command: ["/cloud_sql_proxy", "--dir=/cloudsql",
-                  "-instances=nullsuck:asia-northeast1:nullsuck-db2=tcp:3306",
+                  "-instances=chainer-sample:asia-northeast1:chainer-sample-db=tcp:3306",
                   "-credential_file=/secrets/cloudsql/credentials.json"]
         securityContext:
           runAsUser: 2

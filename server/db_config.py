@@ -25,7 +25,7 @@ existing_databases = [d[0] for d in existing_databases]
 DB_NAME = os.environ.get('DB_NAME')
 
 if DB_NAME not in existing_databases:
-    engine.execute("CREATE DATABASE {0} DEFAULT CHARACTER SET 'utf8' ".format(DB_NAME))
+    engine.execute("CREATE DATABASE {0} DEFAULT CHARACTER SET utf8;".format(DB_NAME))
 
 
 DB_URL = "mysql://{0}:{1}@{2}:3306/{3}?charset=utf8&use_unicode=1".format(DB_USER, DB_PASSWORD, DB_HOST, DB_NAME)

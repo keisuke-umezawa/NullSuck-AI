@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app
+  lagels:
+    app: app
 spec:
   replicas: 1
   selector:
@@ -18,6 +20,8 @@ spec:
         ports:
         - containerPort: 3000
         env:
+          - name: NODE_ENV
+            value: "production"
           - name: API_URL
             value: "http://api:5432"
 
