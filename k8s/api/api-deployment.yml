@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  labels:
+    app: api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+      - name: api
+        image: asia.gcr.io/chainer-sample/api:latest
+        ports:
+        - containerPort: 5432
+        env:
+          - name: PY_ENV
+            value: prod
+          - name: DB_HOST
+            value: 127.0.0.1
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: cloudsql-db-username
+                key: username
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: cloudsql-db-password
+                key: password
+          - name: DB_NAME
+            value: chainer-sample
+      - name: cloudsql-proxy
+        image: gcr.io/cloudsql-docker/gce-proxy:1.14
+        command: ["/cloud_sql_proxy", "--dir=/cloudsql",
+                  "-instances=nullsuck:asia-northeast1:nullsuck-db2=tcp:3306",
+                  "-credential_file=/secrets/cloudsql/credentials.json"]
+        securityContext:
+          runAsUser: 2
+          allowPrivilegeEscalation: false
+        volumeMounts:
+          - name: cloudsql-instance-credentials
+            mountPath: /secrets/cloudsql
+            readOnly: true
+          - name: ssl-certs
+            mountPath: /etc/ssl/certs
+          - name: cloudsql
+            mountPath: /cloudsql
+      volumes:
+        - name: cloudsql-instance-credentials
+          secret:
+            secretName: cloudsql-instance-credentials
+        - name: ssl-certs
+          hostPath:
+            path: /etc/ssl/certs
+        - name: cloudsql
+          emptyDir:

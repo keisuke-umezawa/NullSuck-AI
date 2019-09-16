@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: app-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: chainer-sample-ip
+    ingress.gcp.kubernetes.io/pre-shared-cert: chainer-sample-cert
+spec:
+  rules:
+    - host: chainer-sample.kumezawa.net
+      http:
+        paths:
+          - path: /*
+            backend:
+              serviceName: app-svc
+              servicePort: 3000
