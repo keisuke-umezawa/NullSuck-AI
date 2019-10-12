@@ -1,4 +1,4 @@
-# nurusaku-ai
+# chainer-samle-app
 
 > Sample project for Nurusaku-ai
 
