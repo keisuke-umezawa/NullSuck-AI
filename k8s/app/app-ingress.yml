@@ -6,8 +6,7 @@ metadata:
     kubernetes.io/ingress.global-static-ip-name: chainer-sample-ip
 spec:
   rules:
-    - host: ai.chainer-sample.net
-      http:
+    - http:
         paths:
         - backend:
             serviceName: app-svc
