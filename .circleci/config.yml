@@ -3,10 +3,10 @@ jobs:
   deploy_to_prod:
     working_directory: /app
     environment:
-      - PROJECT_NAME: "nullsuck"
-      - GOOGLE_PROJECT_ID: "nullsuck"
+      - PROJECT_NAME: "chainer-sample"
+      - GOOGLE_PROJECT_ID: "chainer-sample"
       - GOOGLE_COMPUTE_ZONE: "asia-northeast1-a"
-      - GOOGLE_CLUSTER_NAME: "nullsuck"
+      - GOOGLE_CLUSTER_NAME: "chainer-sample"
     docker:
       - image: google/cloud-sdk:237.0.0
     steps:
@@ -14,6 +14,7 @@ jobs:
       - run:
           name: Setup Google Cloud SDK
           command : |
+            apt-get update
             apt-get install -qq -y gettext
             echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
             gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
@@ -59,7 +60,6 @@ jobs:
             bash ./concat.sh
             envsubst < ./k8s.yml > ./patched_k8s.yml
             kubectl apply -f ./patched_k8s.yml
-
 workflows:
   version: 2
   deploy_prod:
