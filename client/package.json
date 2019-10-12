@@ -1,7 +1,7 @@
 {
-  "name": "nurusaku-ai",
+  "name": "chainer-sample-app",
   "version": "1.0.0",
-  "description": "Sample project for Nurusaku-ai",
+  "description": "Sample project for Chainer app",
   "author": "pco2699",
   "private": true,
   "scripts": {

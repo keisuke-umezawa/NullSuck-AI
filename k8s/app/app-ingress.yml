@@ -4,7 +4,8 @@ metadata:
   name: app-ingress
 spec:
   rules:
-    - http:
+    - host: ai.chainer-sample.net
+      http:
         paths:
         - backend:
             serviceName: app-svc
